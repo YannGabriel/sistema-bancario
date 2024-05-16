@@ -1,7 +1,12 @@
 #Verificação conta bancária
-#definição padrão para escolha de conta
-opcao = -1
+
+
+#opções fixas para ocorrer o programa
+tipo_conta_bancaria = -1
 valor_conta = 2500
+SAQUE_MAXIMO = 500
+
+#questionario de nome para acessar a conta
 
 nome = input("\nInsira seu nome: ")
 
@@ -16,66 +21,73 @@ digite seu valor de saque abaixo e seu tipo de conta!
   """
 )
 
+#valor do saque (escolhido pelo usuário)
+
 saque = float(input("Insira o valor que você deseja sacar: "))
 
 #opção de saber o restante na conta
 
-valor_restante_opcao = -1;
+valor_restante_opcao = -1
 
 valor_restante = valor_conta - saque
 
 #estrutura de escolha de conta e valores
 
-while opcao != 0:
+def saldo_invalido():
+        print(f"""
+    
+Processando saque...
+              
+Seu saque não foi autorizado.
+Obrigado por acessar nosso banco, tenha um ótimo dia!
+      
+              """)
+        
+if saque >= SAQUE_MAXIMO:
+    print(saldo_invalido())
 
-  print("""
-                                  
+else:
+    print("""
+                                 
 -------------------------------------------
                                   
 Escolha seu tipo de conta bancária:  
 [1] Conta Padrão 
 [2] Conta Universitária
-[3] Conta Premium 
 [0] Sair 
 
                                   """)
-  
-  tipo_conta_bancaria = int(input("Digite sua opção: "))
 
-  print("\n-------------------------------------------")
-  
-  if tipo_conta_bancaria == 1:
+    tipo_conta_bancaria = int(input("Digite sua opção: "))
+
+def conta_padrao():
     if saque <= valor_conta:
       print(f"""
             
 Processando saque...
 Seu saque no valor de {saque} foi autorizado
-            """)
-    
-      while valor_restante_opcao != 0:
-        saldo_restante = int(input("""
-                                   
-Deseja saber o saldo restante da conta?
+
+Deseja saber o restante de saldo em sua conta?
+
 [1] Sim
 [2] Não
-                                   
-Insira sua opção: """))
+
+            """)
+      
+    saldo_restante = int(input("Insira a sua opção: "))
         
-        if saldo_restante == 1:
-          print("""
+    if saldo_restante == 1:
+        print(f"""
 -----------------------------------------
 Você possui na sua conta: {valor_restante}
 
 Obrigado por acessar nosso banco, tenha um ótimo dia!
-                """)
-          break
-        else:
-          print("Obrigado por acessar nosso banco, tenha um ótimo dia!")
-          break
-      break
-      break
+                    """)
 
-  elif tipo_conta_bancaria ==2:
+    else:
+        print("Obrigado por acessar nosso banco, tenha um ótimo dia!")
+
+def conta_universitaria():
     if saque < 300:
       print(f"""
             
@@ -84,7 +96,6 @@ Seu saque no valor de {saque} foi autorizado
 Obrigado por acessar nosso banco, tenha um ótimo dia!
             
             """)
-      break
     else:
       print("""
             
@@ -92,28 +103,20 @@ Seu saque deverá ser autorizado por seus responsaveis em nosso app.
 Obrigado por acessar nosso banco, tenha um ótimo dia!
 
             """)
-      break
 
-  elif tipo_conta_bancaria ==3:
-      if saque <= 1000000:
-        juros = saque + (saque * 0.08)
-        print(f"""
-              
-Processando saque...")
-Seu saque no valor de {saque + juros} foi autorizado
-Obrigado por acessar nosso banco, tenha um ótimo dia!
-              
-              """)
-        break
-      else:
-        print("""
-              
-Seu saque não foi autorizado.
-Obrigado por acessar nosso banco, tenha um ótimo dia!
-      
-              """)
-        break
 
-  elif tipo_conta_bancaria ==0:
-        print("Obrigado por acessar nosso banco, tenha um ótimo dia!")
-        break
+
+
+print("\n-------------------------------------------")
+
+if tipo_conta_bancaria == 0:
+    print("Obrigado por acessar! Volte sempre!")
+elif tipo_conta_bancaria == 1:
+    print(conta_padrao())
+elif tipo_conta_bancaria == 2:
+    print(conta_universitaria())
+
+
+
+
+
