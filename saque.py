@@ -118,8 +118,7 @@ class Historico:
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data" : datetime.now().strftime
-                ("%d-%m-%Y %H:%M:%s")
+                "data" : datetime.now().strftime("%d-%m-%Y %H:%M:%s")
             }
         )
     
@@ -261,6 +260,7 @@ def novo_cliente(clientes):
     data_nascimento = input("Insira a sua data de nascimento (xx/xx/xxxx): ")
     endereco = input("Insira seu endereço - logadouro / nº / bairro / cidade / estado(sigla): ")
 
+    cliente = PessoaFisica(nome=nome, data_nascimento=data_nascimento, cpf=cpf, endereco=endereco)
     clientes.append(cliente)
     print("Usuário criado com sucesso, agora você pode acessar sua conta!")
 
@@ -298,7 +298,8 @@ def main():
             exibir_extrato(clientes)
             
         elif opcao == 4:
-            numero_conta = (clientes)
+            numero_conta = len(contas) + 1
+            criar_conta(numero_conta, clientes, contas)
     
         elif opcao == 5:
             novo_cliente(clientes)
